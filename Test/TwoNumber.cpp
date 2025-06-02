@@ -28,7 +28,7 @@ public:
         }
         return {}; 
     }
-
+// Thiếu phương pháp Sort và 2 con trỏ
 };
 
 int main(){
