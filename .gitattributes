@@ -1,0 +1,10 @@
+# Để Git tự động quyết định, nhưng ưu tiên LF trong repository
+* text=auto
+
+# Hoặc ép buộc LF cho các tệp cụ thể (ví dụ tệp code)
+# *.js    text eol=lf
+# *.json  text eol=lf
+# *.css   text eol=lf
+# *.html  text eol=lf
+# *.py    text eol=lf
+# *.sh    text eol=lf
