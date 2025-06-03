@@ -1,4 +1,28 @@
-# LeetCode Problem Set: Two Sum
+# Mục Lục
+
+- [**LeetCode Problem 1: Two Sum**](#leetcode-problem-1-two-sum)
+  - [***Yêu Cầu Bài Toán***](#yêu-cầu-bài-toán)
+  - [***Các Phương Pháp Giải Quyết***](#các-phương-pháp-giải-quyết)
+    - [*1. Sử dụng `unordered_map` (Hash Table) - Phương Pháp Đề Xuất*](#1-sử-dụng-unordered_map-hash-table---phương-pháp-đề-xuất)
+      - [Kiến Thức Nền Tảng: `unordered_map`](#kiến-thức-nền-tảng-unordered_map)
+      - [Ý Tưởng Thuật Toán](#ý-tưởng-thuật-toán)
+      - [Các bước thực hiện](#các-bước-thực-hiện)
+      - [Ví dụ minh họa](#ví-dụ-minh-họa)
+    - [*2. Sử dụng Sắp xếp và Hai Con Trỏ*](#2-sử-dụng-sắp-xếp-và-hai-con-trỏ)
+      - [Ý Tưởng Thuật Toán (Sắp xếp và Hai Con Trỏ)](#ý-tưởng-thuật-toán-sắp-xếp-và-hai-con-trỏ)
+      - [Các bước thực hiện (Sắp xếp và Hai Con Trỏ)](#các-bước-thực-hiện-sắp-xếp-và-hai-con-trỏ)
+      - [Ví dụ minh họa (Sắp xếp và Hai Con Trỏ)](#ví-dụ-minh-họa-sắp-xếp-và-hai-con-trỏ)
+  - [***Đánh Giá Hiệu Suất***](#đánh-giá-hiệu-suất)
+- [**LeetCode Problem 2: Add Two Numbers**](#leetcode-problem-2-add-two-numbers)
+  - [***Yêu Cầu Bài Toán***](#yêu-cầu-bài-toán)
+  - [***Phương Pháp Giải Quyết***](#phương-pháp-giải-quyết)
+    - [*1. Sử dụng Danh sách liên kết và phép cộng tính tay*](#1-sử-dụng-danh-sách-liên-kết-và-phép-cộng-tính-tay)
+      - [Kiến Thức Nền Tảng: LinkedList](#kiến-thức-nền-tảng-linkedlist)
+      - [Ý Tưởng Thuật Toán (LinkedList và Phép Cộng)](#ý-tưởng-thuật-toán-linkedlist-và-phép-cộng)
+      - [Các bước thực hiện (LinkedList và Phép Cộng)](#các-bước-thực-hiện-linkedlist-và-phép-cộng)
+  - [***Đánh Giá Hiệu Suất***](#đánh-giá-hiệu-suất-)
+
+# LeetCode Problem 1: Two Sum
 
 ## Yêu Cầu Bài Toán
 
@@ -125,3 +149,77 @@ Phương pháp này yêu cầu sắp xếp mảng trước, sau đó sử dụng
 *Trong đó N là số lượng phần tử trong mảng `nums`.*
 
 ---
+# LeetCode Problem 2: Add Two Numbers
+
+## Yêu Cầu Bài Toán 
+
+Bạn được cung cấp hai danh sách liên kết không rỗng biểu diễn hai số nguyên không âm. Các chữ số được lưu trữ theo **thứ tự ngược lại** và mỗi nút của chúng chứa một chữ số duy nhất. Cộng hai số và trả về tổng dưới dạng danh sách liên kết.
+
+Bạn có thể cho rằng hai số không chứa bất kỳ số 0 nào đứng đầu, ngoại trừ chính số 0.
+
+**Ví dụ 1:**
+
+* **Input:** `l1 = [2,4,3]`, `l2 = [5,6,4]`
+* **Output:** `[7,0,8]`
+* **Giải thích:** $342 + 465 = 807$.
+
+**Ví dụ 2:**
+
+* **Input:** `l1 = [0]`, `l2 = [0]`
+* **Output:** `[0]`
+
+**Ví dụ 3:**
+
+* **Input:** `l1 = [9,9,9,9,9,9,9]`, `l2 = [9,9,9,9]`
+* **Output:** `[8,9,9,9,0,0,0,1]`
+
+**Ràng buộc:**
+
+* Số lượng nút trong mỗi danh sách liên kết nằm trong phạm vi `[1, 100]`.
+* `0 <= Node.val <= 9`
+* Đảm bảo rằng danh sách biểu diễn một số không có số 0 đứng đầu.
+
+---
+
+## Phương Pháp Giải Quyết 
+
+### 1. Sử dụng Danh sách liên kết và phép cộng tính tay
+
+#### Kiến Thức Nền Tảng: LinkedList
+
+Danh sách liên kết (LinkedList) là một cấu trúc dữ liệu tuyến tính bao gồm một chuỗi các **nút (nodes)**.
+Mỗi nút chứa hai phần:
+1.  **Dữ liệu (Value):** Giá trị mà nút đó lưu trữ.
+2.  **Con trỏ Tiếp theo (Next pointer):** Một con trỏ trỏ đến nút kế tiếp trong danh sách. Nút cuối cùng sẽ có con trỏ tiếp theo là `nullptr` (hoặc `null`).
+
+#### Ý Tưởng Thuật Toán (LinkedList và Phép Cộng)
+
+Bài toán yêu cầu cộng hai số được biểu diễn bởi danh sách liên kết, trong đó các chữ số được lưu trữ theo thứ tự ngược (chữ số hàng đơn vị ở đầu danh sách). Chúng ta sẽ mô phỏng phép cộng bằng tay, duyệt qua cả hai danh sách từ đầu đến cuối, cộng các chữ số tương ứng cùng với một giá trị **nhớ (carry)** từ phép cộng trước đó.
+
+#### Các bước thực hiện (LinkedList và Phép Cộng)
+
+1.  **Khởi tạo:**
+    * Khởi tạo `carry = 0` để lưu trữ phần nhớ của phép cộng.
+    * Khởi tạo hai con trỏ `curr1` và `curr2` trỏ lần lượt đến đầu danh sách `l1` và `l2`.
+
+2.  **Duyệt và Cộng:**
+    * Lặp trong khi `curr1` khác `nullptr` HOẶC `curr2` khác `nullptr` HOẶC `carry` khác `0`.
+    * Lấy giá trị từ nút hiện tại của `l1` (gọi là `x`). Nếu `curr1` là `nullptr`, coi `x = 0`. Di chuyển `curr1` đến nút tiếp theo.
+    * Lấy giá trị từ nút hiện tại của `l2` (gọi là `y`). Nếu `curr2` là `nullptr`, coi `y = 0`. Di chuyển `curr2` đến nút tiếp theo.
+    * Tính tổng: `sum = x + y + carry`.
+    * Cập nhật `carry`: `carry = sum / 10` (phần nguyên của `sum` chia cho 10).
+    * Tạo một nút mới với giá trị `sum % 10` (phần dư của `sum` chia cho 10, tức là chữ số hàng đơn vị của `sum`).
+    * Kiểm tra độ dài của 2 danh sách và carry, nếu không bằng nhau thì sẽ thêm các số node có `value = 0`
+    * Di chuyển `curr1` và `curr2` đến các `node` tiếp theo.
+
+3.  **Kết quả:**
+    * Sau vòng lặp, danh sách kết quả được lưu trên `l1`.
+
+
+*(Bảng này được thêm vào dựa trên yêu cầu hoàn thiện và làm giống bảng có sẵn, nội dung phân tích dựa trên thuật toán đã mô tả ở trên.)*
+
+| Phương Pháp                                 | Độ Phức Tạp Thời Gian         | Độ Phức Tạp Không Gian        | Ghi Chú                                                                                                                                                                 |
+| :------------------------------------------- | :---------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Danh sách liên kết và phép cộng tính tay** | $O(\max(M, N))$               | $O(\max(M, N))$               | Duyệt qua mỗi danh sách một lần. $M$ và $N$ là độ dài của hai danh sách liên kết. Không gian dùng để tạo danh sách kết quả, có độ dài tối đa là $\max(M, N) + 1$. |
+
+*Trong đó M và N lần lượt là số lượng phần tử trong danh sách liên kết `l1` và `l2`.*
