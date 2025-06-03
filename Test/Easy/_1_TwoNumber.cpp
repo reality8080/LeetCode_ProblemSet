@@ -28,7 +28,27 @@ public:
         }
         return {}; 
     }
-// Thiếu phương pháp Sort và 2 con trỏ
+    // Thiếu phương pháp Sort và 2 con trỏ
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int,int>> indexNums;
+            for(int i=0;i<nums.size();i++){
+                indexNums.push_back({nums[i], i});
+            }
+            sort(indexNums.begin(),indexNums.end());
+            int left = 0, right = indexNums.size()-1;
+            while(left<right){
+                if(indexNums[left].first+indexNums[right].first==target){
+                    return {indexNums[left].second,indexNums[right].second};
+                }
+                else if(indexNums[left].first+indexNums[right].first<target){
+                    left++;
+                }
+                else{
+                    right--;
+                }
+            } 
+            return {};
+        }
 };
 
 int main(){
