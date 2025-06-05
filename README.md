@@ -215,11 +215,82 @@ Bài toán yêu cầu cộng hai số được biểu diễn bởi danh sách li
 3.  **Kết quả:**
     * Sau vòng lặp, danh sách kết quả được lưu trên `l1`.
 
-
-*(Bảng này được thêm vào dựa trên yêu cầu hoàn thiện và làm giống bảng có sẵn, nội dung phân tích dựa trên thuật toán đã mô tả ở trên.)*
-
 | Phương Pháp                                 | Độ Phức Tạp Thời Gian         | Độ Phức Tạp Không Gian        | Ghi Chú                                                                                                                                                                 |
 | :------------------------------------------- | :---------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Danh sách liên kết và phép cộng tính tay** | $O(\max(M, N))$               | $O(\max(M, N))$               | Duyệt qua mỗi danh sách một lần. $M$ và $N$ là độ dài của hai danh sách liên kết. Không gian dùng để tạo danh sách kết quả, có độ dài tối đa là $\max(M, N) + 1$. |
 
 *Trong đó M và N lần lượt là số lượng phần tử trong danh sách liên kết `l1` và `l2`.*
+---
+# LeetCode Problem 3: Longest Substring Without Repeating Characters
+
+## Yêu Cầu Bài Toán
+
+Cho một chuỗi s, hãy tìm độ dài của chuỗi con dài nhất không có ký tự trùng lặp.
+
+Ví dụ 1:
+
+Đầu vào: s = "abcabcbb"
+Đầu ra: 3
+Giải thích: Câu trả lời là "abc", có độ dài là 3.
+Ví dụ 2:
+
+Đầu vào: s = "bbbbb"
+Đầu ra: 1
+Giải thích: Câu trả lời là "b", có độ dài là 1.
+Ví dụ 3:
+
+Đầu vào: s = "pwwkew"
+Đầu ra: 3
+Giải thích: Câu trả lời là "wke", có độ dài là 3.
+Lưu ý rằng câu trả lời phải là một chuỗi con, "pwke" là một chuỗi con chứ không phải là một chuỗi con.
+
+Ràng buộc:
+
+0 <= s.length <= 5 * 104
+s bao gồm các chữ cái tiếng Anh, chữ số, ký hiệu và khoảng trắng.
+---
+
+# Phương Pháp Giải Quyết
+
+## 1. Sử dụng Danh sách liên kết và phép cộng tính tay
+
+### Kiến Thức Nền Tảng
+
+* **String (Chuỗi kí tự):**
+    * Khởi tạo và thao tác với `std::string`.
+    * Các phương thức quan trọng: `size()`, `empty()`, `find()`, `+=` (nối chuỗi), `erase()`.
+    * Hằng số `std::string::npos` (biểu thị không tìm thấy).
+
+### Ý Tưởng Thuật Toán
+Dùng **string** để tạo các chuỗi con sao cho mỗi chuỗi là dài nhất, liên tiếp và không bị trùng lặp.
+
+### Các bước thực hiện
+1.  **Khởi tạo** các biến cần thiết gồm có chuỗi string con, độ dài `maxlength`.
+2.  Thực hiện **vòng lặp** duyệt qua tất cả các phần tử cho trước và tìm độ dài phù hợp nhất với yêu cầu (Thêm vòng lặp `for` để tìm).
+3.  Nếu thấy các phần tử bị **trùng** thì quay trở lại.
+
+---
+
+## 2. Sử dụng hai con trỏ và cửa sổ trượt động
+
+### Kiến Thức Nền Tảng
+* **Hai con trỏ (Two Pointers) và Cửa sổ trượt động (Sliding Window):**
+    * Kỹ thuật sử dụng hai con trỏ (`left`, `right`) để định nghĩa một "cửa sổ" trên một cấu trúc dữ liệu (ví dụ: chuỗi hoặc mảng).
+    * Cửa sổ có thể mở rộng hoặc thu hẹp dựa trên các điều kiện của bài toán.
+
+### Ý Tưởng Thuật Toán
+Dùng **string** để tạo các chuỗi con sao cho mỗi chuỗi là dài nhất, liên tiếp và không bị trùng lặp.
+
+### Các bước thực hiện
+1.  **Khởi tạo** các biến cần thiết gồm có chuỗi string con, độ dài `maxlength` và 2 con trỏ `left` và `right`.
+2.  Thực hiện **trượt cửa sổ động** trên mảng bằng cách:
+    * Thêm các phần tử vào chuỗi con (tăng `right`, thêm phần tử vào chuỗi con ở vị trí mới trượt của con trỏ `right`).
+    * Khi gặp phần tử **lặp lại** trong chuỗi thì giảm lại cho đến khi chuỗi không còn có các phần tử bị trùng (giảm `left`, bỏ các phần tử ở vị trí con trỏ `left`).
+3.  **So sánh** số lượng phần tử con và tìm ra `max`.
+
+| Tên Phương Pháp (từ code)                                  | Độ phức tạp thời gian | Độ phức tạp không gian | Mô tả / Ghi chú                                                                                                                                                             |
+| :----------------------------------------------------------- | :-------------------: | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cách 1: Đánh giá bằng `string`** |       $O(N^3)$        |        $O(N)$        | Duyệt qua tất cả các chuỗi con khả dĩ bắt đầu từ vị trí `i`. Xây dựng chuỗi con và kiểm tra sự lặp lại ký tự bằng `string::find()`.                                              |
+| **Cách 2: "Quy Hoạch Động" (dùng `vector` và `string::find`)** |       $O(N^3)$        |        $O(N)$        | Tương tự Cách 1, nhưng lưu các độ dài vào một `vector` và sau đó sắp xếp để tìm giá trị lớn nhất. (Lưu ý: Code có dòng `a[i]+=a[j]` bất thường và có bình luận tự đánh giá thấp). |
+| **Cách 3: Hai con trỏ (cửa sổ trượt dùng `string`)** |       $O(N^2)$        |        $O(N)$        | Sử dụng hai con trỏ `left` và `right` để tạo một cửa sổ trượt. Một chuỗi `s1` được dùng để lưu các ký tự trong cửa sổ hiện tại. Thao tác `find` và `erase` trên `s1` mất $O(L)$ (với $L$ là độ dài cửa sổ). |
+| **(Tham khảo) Cách 3 Tối ưu: Hai con trỏ + Bảng băm** |        $O(N)$         |    $O(\min(N,k))$   | (Không có trong code đã cho, nhưng được gợi ý) Dùng hai con trỏ và bảng băm (hoặc mảng tần suất) để theo dõi ký tự trong cửa sổ. Thao tác kiểm tra/cập nhật ký tự trong bảng băm trung bình là $O(1)$. $k$ là kích thước của bộ ký tự. |
